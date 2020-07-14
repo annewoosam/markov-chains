@@ -3,19 +3,19 @@
 from random import choice
 
 
-def open_and_read_file(file_path):
-    """Take file path as string; return text as string.
+# def open_and_read_file(file_path):
+#     """Take file path as string; return text as string.
 
-    Takes a string that is a file path, opens the file, and turns
-    the file's contents as one string of text.
-    """
+#     Takes a string that is a file path, opens the file, and turns
+#     the file's contents as one string of text.
+#     """
  
-    contents = open(file_path).read().replace('\n', '')
-    print(contents)
-    return contents #"Contents of your file as one long string"
+    text_string = open(file_path).read()
+    print(text_string)
+    return text_string #"Contents of your file as one long string"
 
 
-def make_chains(text_string):
+def make_chains(file_path):
     """Take input text as string; return dictionary of Markov chains.
 
     A chain will be a key that consists of a tuple of (word1, word2)
@@ -40,12 +40,35 @@ def make_chains(text_string):
         [None]
     """
 
-    chains = {}
+        
 
-    # your code goes here
+# 
+# meshing https://stackoverflow.com/questions/3277503/how-to-read-a-file-line-by-line-into-a-list  and
+# https://www.geeksforgeeks.org/python-bigram-formation-from-given-list/ using list comprehension + enumerate() + split(), to get bigrams for dictionary keys
+# initializing list  
+# text_string = open("green-eggs.txt").read()
+# print(text_string)
+    with open("green-eggs.txt") as file_in:
+        lines = []
+        for line in file_in:
+            lines.append(line)
+    test_list= lines
+    print(test_list)
+      
+    # printing the original list  
+    print ("The original list is : " + str(test_list)) 
+      
+    # using list comprehension + enumerate() + split() 
+    # for Bigram formation 
+    res = [(x, i.split()[j + 1]) for i in test_list  
+           for j, x in enumerate(i.split()) if j < len(i.split()) - 1] 
+      
+    # printing result 
+    print ("The formed bigrams are : " + str(res)) 
 
-    return chains
-
+    # chains = {}
+    # return chains
+make_chains("green-eggs.txt")
 
 def make_text(chains):
     """Return text from chains."""
@@ -60,12 +83,12 @@ def make_text(chains):
 input_path = "green-eggs.txt"
 
 # Open the file and turn it into one long string
-input_text = open_and_read_file(input_path)
+#input_text = open_and_read_file(input_path)
 
 # Get a Markov chain
-chains = make_chains(input_text)
+## temp hashchains = make_chains(input_text)
 
 # Produce random text
-random_text = make_text(chains)
+## temp hash random_text = make_text(chains)
 
-print(random_text)
+## temp hash print(random_text)
